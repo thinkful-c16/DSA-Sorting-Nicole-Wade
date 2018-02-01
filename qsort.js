@@ -13,38 +13,48 @@ function quickSort(array, start = 0, end = array.length - 1){
   if (start >= end) {
     return array;
   }
-  console.log('start:', start);
-  console.log('end:', end);
+//   console.log('start:', start);
+//   console.log('end:', end);
   // console.log('here');
   const middle = partition(array, start, end);
-  console.log('middle:', middle);
   // console.log('here?');
   array = quickSort(array, start, middle);
-  console.log(array);
-  
+//   console.log(array);
+  console.log('middle:', middle);
   array = quickSort(array, middle + 1, end);
-  
+
   return array;
 }
 
+
+// let dataset = [21, 2, 45, 4];
+
+// let second round = [2, 21, 45, 4];
+//21 is middle index
+//j 4 is less than middle index 21
+//decrements j-- so j is now 45
 function partition(array, start, end){
-  let pivot = Math.floor(end/2);
+  let pivot = Math.floor((start + end)/2);
   let j = end;
   let i = start;
+  console.log('pivot:', pivot, ' j:', j, ' i:', i);
   while(i < j){
     if (array[i] >= array[pivot] && array[j] <= array[pivot]){
+      console.log('condition 1');
       swap(array, i, j);
       j--;
       i++;
     }
     else if (array[i] <= array[pivot]) {
+      console.log('condition 2');
       i++;
     }
     else if (array[j] >= array[pivot]){
+      console.log('condition 3');
       j--;
     }
   }
-  swap(array, i, pivot);
+//swap(array, i, pivot);
   return pivot;
 }
 
