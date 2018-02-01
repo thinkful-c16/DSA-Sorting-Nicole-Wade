@@ -8,28 +8,41 @@
 // When i & j stops, swap elements at i and j
 // When i > j, swap i with pivot
 
-function quickSort(){}
+function quickSort(array, start = 0, end = array.length){
+  if (start >= end) {
+    return array;
+  }
+  // console.log('here');
+  const middle = partition(array, start, end);
+  // console.log('here?');
+  array = quickSort(array, start, middle);
+  // console.log('array after left recursion', array);
+  array = quickSort(array, middle + 1, end);
+  // console.log('array after right recursion', array);
+  return array;
+}
 
 function partition(array, start, end){
-  let pivot = (array[Math.floor(array.length/2)]);
+  let pivot = array[Math.floor(end/2)];
   let j = end - 1;
   let i = start;
   while(i < j){
-    if (array[i] > pivot && array[j] < pivot){
+    if (array[i] >= pivot && array[j] <= pivot){
       swap(array, i, j);
       j--;
       i++;
     }
-    if (array[i] < pivot) {
+    else if (array[i] <= pivot) {
       i++;
     }
-    if (array[j] > pivot){
+    else if (array[j] >= pivot){
       j--;
     }
   }
-  if(i === j){
-    swap(array, i, pivot);
-  }
+  console.log('pivot', pivot);
+  swap(array, i, pivot);
+  console.log('i', i);
+  return i;
 }
 
 function swap(array, i, j) {
@@ -37,3 +50,5 @@ function swap(array, i, j) {
   array[i] = array[j];
   array[j] = temp;
 }
+
+module.exports = quickSort;
